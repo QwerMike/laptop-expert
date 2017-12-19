@@ -6,12 +6,12 @@
 % Drive Capacity
 % GPU
 % Touchscreen
-computer("link", notebook, 5, 5, 7).
-computer("link6", notebook, 1, 34, 6).
-computer("link2", desktop, 8, 6, 6).
-computer("link3", desktop, 8, 6, 6).
-computer("link4", desktop, 4, 4, 6).
-computer("link5", desktop, 9, 4, 6).
+computer('link', notebook, 5, 5, 7).
+computer('link6', notebook, 1, 34, 6).
+computer('link2', desktop, 8, 6, 6).
+computer('link3', desktop, 8, 6, 6).
+computer('link4', desktop, 4, 4, 6).
+computer('link5', desktop, 9, 4, 6).
 
 get_link(Type, Ram, Proc, Price, Link) :-
     computer(Link, Type, Ram, Proc, Price).
@@ -21,7 +21,7 @@ get_links(Type, Ram, Proc, Price, Results) :-
     peano(Link, [Link|Links], Links, Results).
 
 peano(Link, Links, [Next|Rest], [Link|Results]):-
-    not(is_dominated(Link, Links)),
+    \+(is_dominated(Link, Links)),
     peano(Next, Links, Rest, Results). 
 
 peano(Link, Links, [Next|Rest], Results):-
@@ -29,8 +29,8 @@ peano(Link, Links, [Next|Rest], Results):-
     peano(Next, Links, Rest, Results).
 
 peano(Link, Links, [], [Link]):-
-    not(is_dominated(Link, Links));
-    Link = "".
+    \+(is_dominated(Link, Links));
+    Link = ''.
 
 is_dominated(Link, [Link1|Links]):-
     computer(Link, _, Ram, Proc, Price),
