@@ -23,8 +23,8 @@ let result = Array.from(nodes,
  * @returns {String} -- Prolog predicates
  */
 function exportToProlog(laptops) {
-  return laptops.map(x => "laptop("
+  return laptops.map(x => 'laptop('
                         + [x.display, x.cpu, x.ram, x.drive, x.price].join(', ')
-                        + ",\n    '" + x.link + "').")
+                        + ',\n    "' + x.link + '").')
                 .join('\n');
 }
