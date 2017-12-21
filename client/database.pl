@@ -1,9 +1,8 @@
 search_laptops(Screen, Proc, Ram, Storage, Link) :-
     laptop(Screen, Proc, Ram, Storage, _, Link).
-    
+
 search_laptops(Screen, Proc, Ram, Storage, Price, Link) :-
     laptop(Screen, Proc, Ram, Storage, ActualPrice, Link),
-    ActualPrice >= Price - 500,
     ActualPrice =< Price + 500.
 
 get_link(Screen, Proc, Ram, Storage, Price, Link) :-
@@ -11,17 +10,17 @@ get_link(Screen, Proc, Ram, Storage, Price, Link) :-
 
 get_links(Screen, Proc, Ram, Storage, Price, Results) :-
     findall(X0, get_link(Screen, Proc, Ram, Storage, Price, X0), [Link|Links]),
-    peano(Link, [Link|Links], Links, Results).
+    slater(Link, [Link|Links], Links, Results).
 
-peano(Link, Links, [Next|Rest], [Link|Results]):-
+slater(Link, Links, [Next|Rest], [Link|Results]):-
     \+(is_dominated(Link, Links)),
-    peano(Next, Links, Rest, Results). 
+    slater(Next, Links, Rest, Results). 
 
-peano(Link, Links, [Next|Rest], Results):-
+slater(Link, Links, [Next|Rest], Results):-
     is_dominated(Link, Links),
-    peano(Next, Links, Rest, Results).
+    slater(Next, Links, Rest, Results).
 
-peano(Link, Links, [], [Link]):-
+slater(Link, Links, [], [Link]):-
     \+(is_dominated(Link, Links));
     Link = "".
 
