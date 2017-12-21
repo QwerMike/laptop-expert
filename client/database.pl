@@ -1,3 +1,8 @@
+search_laptops(Screen, Proc, Ram, Storage, Price, Link) :-
+    laptop(Screen, Proc, Ram, Storage, ActualPrice, Link),
+    ActualPrice >= Price - 500,
+    ActualPrice =< Price + 500.
+
 get_link(Screen, Proc, Ram, Storage, Price, Link) :-
     laptop(Screen, Proc, Ram, Storage, Price, Link).
 
